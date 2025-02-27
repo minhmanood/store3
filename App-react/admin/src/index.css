@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.active{
+  background-color: aliceblue;
+  border-color: bisque;
+}
+seclect,input,textarea{
+  border:1px solid rgb(228, 224, 224);
+  outline-color: antiquewhite;
+  border-radius: 4px;
+}

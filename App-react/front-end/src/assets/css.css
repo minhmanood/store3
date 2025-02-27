@@ -1,0 +1,128 @@
+/* src/BMICalculator.css */
+.bmi-calculator {
+    max-width: 210px;
+    /* Giới hạn chiều rộng */
+
+    /* Trung tâm component */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    /* Đường viền */
+    border-radius: 10px;
+    /* Bo tròn góc */
+    background-color: #f9f9f9;
+    /* Màu nền nhẹ */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Đổ bóng */
+}
+
+.bmi-calculator h2 {
+    text-align: center;
+    /* Căn giữa tiêu đề */
+    color: #333;
+    /* Màu tiêu đề */
+}
+
+.bmi-calculator label {
+    display: block;
+    /* Hiển thị dưới dạng khối */
+    margin: 10px 0 5px;
+    /* Cách giữa các nhãn */
+    font-weight: bold;
+    /* Chữ đậm */
+}
+
+.bmi-calculator input {
+    width: 50%;
+    /* Chiều rộng đầy đủ */
+    padding: 10px;
+    /* Padding cho input */
+    margin-bottom: 10px;
+    /* Cách dưới */
+    border: 1px solid #ccc;
+    /* Đường viền */
+    border-radius: 5px;
+    /* Bo tròn góc */
+    font-size: 16px;
+    /* Kích thước chữ */
+}
+
+.bmi-calculator button {
+    background-color: #1f1f1f;
+    /* Màu nền nút */
+    color: white;
+    /* Màu chữ nút */
+    border: none;
+    /* Không có đường viền */
+    padding: 10px;
+    /* Padding cho nút */
+    border-radius: 5px;
+    /* Bo tròn góc */
+    cursor: pointer;
+    /* Con trỏ tay khi di chuột */
+    font-size: 16px;
+    /* Kích thước chữ */
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển đổi */
+}
+
+.bmi-calculator button:hover {
+    background-color: #eef6ff;
+    /* Màu nền nút khi hover */
+    color: #1f1f1f;
+}
+
+.bmi-calculator h3 {
+    margin-top: 15px;
+    /* Cách trên */
+    color: #333;
+    /* Màu chữ */
+}
+
+.bmi-calculator p {
+    margin: 5px 0;
+    /* Cách giữa các đoạn văn */
+}
+
+/* src/CommentSection.css */
+.comment-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+
+    background-color: #f9f9f9;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: none;
+    /* Ngăn chặn thay đổi kích thước */
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.comments-list {}
+
+.comment {
+
+    border-bottom: 1px solid #e0e0e0;
+}
