@@ -75,47 +75,50 @@ const Collection = () => {
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
      {/*   */} 
      <div className='min-w-60'>
-      <p onClick={()=>setShowFilter(!showFilter)} className='my-2 text-xl flex items-center cursor-pointer gap-2'> BỘ LỌC
-        <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90':''}`} src={assets.dropdown} alt="" />
-      </p>
-      {/*CATEGORY */}
-        <div className={`border border-gray-300 pl-5 py-3 mt-6${showFilter ? '' : 'hidden'}`}>
-          <p className='mb-3 text-sm font-medium'>Loại quần áo</p>
+      <div className='sm:sticky sm:top-4'>
+        <p onClick={()=>setShowFilter(!showFilter)} className='my-2 text-xl flex items-center cursor-pointer gap-2'> BỘ LỌC
+          <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90':''}`} src={assets.dropdown} alt="" />
+        </p>
+        {/*CATEGORY */}
+        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden sm:block'}`}>
+          <p className='mb-3 text-sm font-medium'>Giới tính</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-        <p className='flex gap-2'>
-          <input className='w-3' type="checkbox" value={'Men'} onChange={toggleCategory} />Thời trang Nam
-         
-        </p>
-        <p className='flex gap-2'>
-          <input className='w-3' type="checkbox" value={'Women'} onChange={toggleCategory} />Thời trang Nữ
-         
-        </p>
-        <p className='flex gap-2'>
-          <input className='w-3' type="checkbox" value={'Kids'} onChange={toggleCategory} />Trẻ em
-         
-        </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'Men'} onChange={toggleCategory} />Thời trang Nam
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'Women'} onChange={toggleCategory} />Thời trang Nữ
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'Kids'} onChange={toggleCategory} />Trẻ em
+            </p>
+          </div>
+        </div>
+        {/*TYPE */}
+        <div className={`border border-gray-300 pl-5 py-3 my-5 ${showFilter ? '' : 'hidden sm:block'}`}>
+          <p className='mb-3 text-sm font-medium'>Loại sản phẩm </p>
+          <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'Tshirt'} onChange={toggleSubCategory} />Áo thun
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'shirt'} onChange={toggleSubCategory} />Áo sơ mi
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'longpants'} onChange={toggleSubCategory} />Quần dài
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'pants'} onChange={toggleSubCategory} />Quần ngắn
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'cosmetics'} onChange={toggleSubCategory} />Mỹ Phẩm
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'jewelry'} onChange={toggleSubCategory} />Trang sức
+            </p>
+          </div>
+        </div>
       </div>
-      
-      </div>
-       {/*TYPE */}
-           <div className={`border border-gray-300 pl-5 py-3 my-5${showFilter ? '':'hidden'}`}>
-      <p className='mb-3 text-sm font-medium'>Phong cách</p>
-            <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-        <p className='flex gap-2'>
-          <input className='w-3' type="checkbox" value={'Xuan'} onChange={toggleSubCategory} />Cá tính
-         
-        </p>
-        <p className='flex gap-2'>
-          <input className='w-3' type="checkbox" value={'Ha'} onChange={toggleSubCategory} />Trẻ Trung
-         
-        </p>
-        <p className='flex gap-2'>
-          <input className='w-3' type="checkbox" value={'Thu'} onChange={toggleSubCategory} />Năng động
-         
-        </p>
-            </div>
-      
-            </div>
      </div>
      {/*Right slide */}
      <div className='flex-1'>
@@ -133,7 +136,14 @@ const Collection = () => {
       <div className='grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
         {
       filterProducts.map((item,index)=>(
-        <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price}/>
+        <ProductItem 
+          key={index} 
+          id={item._id} 
+          image={item.image} 
+          name={item.name} 
+          price={item.price}
+          sizes={item.sizes}
+        />
       ))
     }
       </div>

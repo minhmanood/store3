@@ -8,7 +8,7 @@ export const ShopContext=createContext()
 const ShopContextProvider=(props)=>{
     
     const delivery_Fee=20000;
-    const currency='VND:  ';
+    const currency='₫';
     const backendUrl =import.meta.env.VITE_BACKEND_URL
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false)
@@ -16,7 +16,48 @@ const ShopContextProvider=(props)=>{
     const [products,setProducts]=useState([])
     const [token, setToken]=useState('')
     const [userId, setUserId] = useState(null)
+    const [discountCode, setDiscountCode] = useState('')
+    const [discountAmount, setDiscountAmount] = useState(0)
     const navigate=useNavigate()
+
+    // Discount codes with their percentages
+    const availableDiscounts = {
+        'SALE20': 20,
+        'SALE30': 30,
+        'SALE40': 40,
+        'SALE50': 50
+    }
+
+    const applyDiscountCode = (code) => {
+        const upperCode = code.toUpperCase();
+        if (availableDiscounts[upperCode]) {
+            setDiscountCode(upperCode);
+            setDiscountAmount(availableDiscounts[upperCode]);
+            toast.success(`Mã giảm giá ${availableDiscounts[upperCode]}% đã được áp dụng!`);
+            return true;
+        } else {
+            toast.error('Mã giảm giá không hợp lệ');
+            setDiscountCode('');
+            setDiscountAmount(0);
+            return false;
+        }
+    }
+
+    const removeDiscountCode = () => {
+        setDiscountCode('');
+        setDiscountAmount(0);
+    }
+
+    const getDiscountedAmount = () => {
+        const subtotal = getCartAmount();
+        return Math.round((subtotal * discountAmount) / 100);
+    }
+
+    const getFinalAmount = () => {
+        const subtotal = getCartAmount();
+        const discount = getDiscountedAmount();
+        return subtotal === 0 ? 0 : subtotal - discount + delivery_Fee;
+    }
 
     const addToCart= async (itemId,size)=>{
         if(!size){
@@ -151,13 +192,23 @@ return totalAmount
         showSearch,
         setShowSearch,
         cartItems,
-        addToCart,setCartItems,
+        addToCart,
+        setCartItems,
         getCartCount,
         updateQuantity,
         getCartAmount,
-        navigate,backendUrl,
-        setToken,token,
-        userId, setUserId
+        navigate,
+        backendUrl,
+        setToken,
+        token,
+        userId, 
+        setUserId,
+        discountCode,
+        discountAmount,
+        applyDiscountCode,
+        removeDiscountCode,
+        getDiscountedAmount,
+        getFinalAmount
     }
     return(
         <ShopContext.Provider value={value}>

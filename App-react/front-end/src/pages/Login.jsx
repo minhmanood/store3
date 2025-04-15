@@ -59,7 +59,7 @@ const Login = () => {
     <input onChange={(e)=>setEmail(e.target.value)} value={email} type="text" className='w-full border rounded-lg p-2 border-gray-400 outline-none bg-transparent text-gray-400 placeholder:text-gray-400' placeholder='Email'/>
     <input onChange={(e)=>setPassword(e.target.value)} value={password} type="password" className='w-full rounded-lg  border p-2  border-gray-400 outline-none bg-transparent text-gray-400 placeholder:text-gray-400' placeholder='Password'/>
     <div className='w-full flex justify-between text-sm mt-[-8px]'>
-      <p className='cursor-pointer'>Quên mật khẩu</p>
+      <p onClick={() => toast.info('Vui lòng liên hệ admin qua Messenger để được hỗ trợ')} className='cursor-pointer'>Quên mật khẩu</p>
       {
         currentState==='Đăng nhập'
         ?<p onClick={()=>setCurrentState('Đăng kí')} className='cursor-pointer'>Tạo tài khoản</p>
@@ -67,7 +67,7 @@ const Login = () => {
       }
       
     </div>
-    <button className='w-full bg-black text-white py-2 rounded-full'>{currentState === 'Đăng nhập' ?  'Đăng kí' : 'Đăng kí'}</button>
+    <button className='w-full bg-black text-white py-2 rounded-full'>{currentState === 'Đăng nhập' ? 'Đăng nhập' : 'Đăng kí'}</button>
    </form>
   
   )

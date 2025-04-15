@@ -9,9 +9,11 @@ import Cart from './pages/Cart'
 import Login from './pages/Login'
 import PlaceOder from './pages/PlaceOder'
 import Orders from './pages/Orders'
+import Profile from './pages/Profile'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
+import CookieConsent from './components/CookieConsent'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -26,13 +28,15 @@ const App = () => {
           <Route path='/collection' element={<Collection/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/contact' element={<Contact/>}/>
-          <Route path='/product/:productId' element={<Product/>}/>
+          <Route path='/product/:productName' element={<Product/>}/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/place-order' element={<PlaceOder/>}/>
           <Route path='/orders' element={<Orders/>}/>
+          <Route path='/profile' element={<Profile/>}/>
        </Routes>
        <Footer/>
+       <CookieConsent />
     </div>
   )
 }

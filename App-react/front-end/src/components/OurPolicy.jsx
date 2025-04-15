@@ -15,9 +15,16 @@ const OurPolicy = () => {
         <p className='text-gray-400'>Giao từ 3-4 ngày </p>
       </div>
       <div>
-        <img className='w-12 m-auto mb-5' src={assets.mes} alt="" />
-        <p className='font-semibold'>Nhân viên Hỗ trợ 24/7</p>
-        <p className='text-gray-400'>Liên hệ trực tiếp qua mesenger</p>
+        <a 
+          href="https://www.facebook.com/minh.man.756714" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="cursor-pointer"
+        >
+          <img className='w-12 m-auto mb-5' src={assets.mes} alt="" />
+          <p className='font-semibold'>Nhân viên Hỗ trợ 24/7</p>
+          <p className='text-gray-400'>Liên hệ trực tiếp qua mesenger</p>
+        </a>
       </div>
     </div>
   )

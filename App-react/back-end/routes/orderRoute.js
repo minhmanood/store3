@@ -6,6 +6,7 @@ import {
   allOrders,
   updateStatus,
   userOrders,
+  cancelOrder,
 } from "../controllers/oderController.js";
 import adminAuth from "../middleware/adminAuth.js";
 import authUser from "../middleware/auth.js";
@@ -17,6 +18,7 @@ orderRouter.post("/status", adminAuth, updateStatus);
 
 orderRouter.post("/place", authUser, placeOders);
 
+orderRouter.post("/cancel", authUser, cancelOrder);
 
 orderRouter.post("/userorder", authUser, userOrders);
 export default orderRouter

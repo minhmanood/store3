@@ -91,4 +91,42 @@ const getUser = async (req, res) => {
     }
 };
 
-export { loginUser, registerUser, adminLogin, getUser };
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await userModel.find().select('-password');
+        res.json({ success: true, data: users });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+const updateUser = async (req, res) => {
+    try {
+        const token = req.headers.token;
+        if (!token) {
+            return res.status(401).json({ success: false, message: "Vui lòng đăng nhập" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await userModel.findById(decoded.id);
+        
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Không tìm thấy người dùng" });
+        }
+
+        // Update fields if provided
+        if (req.body.name) user.name = req.body.name;
+        if (req.body.phone) user.phone = req.body.phone;
+
+        await user.save();
+        
+        // Return updated user without password
+        const updatedUser = await userModel.findById(user._id).select('-password');
+        res.json({ success: true, user: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Lỗi server" });
+    }
+};
+
+export { loginUser, registerUser, adminLogin, getUser, getAllUsers, updateUser };

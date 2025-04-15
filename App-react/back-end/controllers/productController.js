@@ -24,6 +24,7 @@ try {
         category,
         price:Number(price),
         subCategory,
+        subColor,
         bestseller:bestseller==="true"?true:false,
         sizes:JSON.parse(sizes),
         image:imagesUrl,
@@ -34,16 +35,13 @@ try {
     await product.save()
     
     console.log(name,description,price,category,subCategory,sizes,bestseller);
-   
     console.log(imagesUrl);
-    res.json({})
     
-    
-
+    res.json({ success: true, message: "Thêm sản phẩm thành công" })
     
 } catch (error) {
     console.log(error);
-    res.json({success:false,messge:error.messge})   
+    res.json({success: false, message: error.message})   
 }
 }
 const listProduct = async(req,res)=>{

@@ -17,6 +17,55 @@ a.active hr{
 *{
   font-family: "Outfit", sans-serif;
 }
+
+/* Cart Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes checkmark {
+  from { stroke-dashoffset: 24; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes flyToCart {
+  0% {
+    transform: scale(1) translateY(0) translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.5) translateY(-100px) translateX(-50px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.25) translateY(-200px) translateX(-200px);
+    opacity: 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.3s ease-out;
+}
+
+.animate-check {
+  stroke-dasharray: 24;
+  animation: checkmark 0.3s ease-out forwards;
+}
+
+.animate-fly-to-cart {
+  animation: flyToCart 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 @media (max-width: 640px) {
  a.active{
   background-color: black;

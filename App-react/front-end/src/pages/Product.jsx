@@ -6,13 +6,15 @@ import RelatedProduct from '../components/RelatedProduct';
 import BMI from '../components/BMI'
 import StarRating from '../components/StarRating'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import { formatCurrency } from '../utils/formatCurrency'
 
 const formatPrice = (price) => {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  return formatCurrency(price)
 }
 
 const Product = () => {
-  const {productId: urlProductId} = useParams();
+  const {productName} = useParams();
   const {products, currency, addToCart, backendUrl} = useContext(ShopContext)
   const [productData, setProductData] = useState(null)
   const [image, setImage] = useState('')
@@ -22,6 +24,15 @@ const Product = () => {
   const [averageRating, setAverageRating] = useState(0)
   const [totalRatings, setTotalRatings] = useState(0)
   const [productId, setProductId] = useState(null)
+  const [showAnimation, setShowAnimation] = useState(false)
+
+  const formatUrlName = (name) => {
+    return name.trim().replace(/\s+/g, '-');
+  }
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('vi-VN')
+  }
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -29,7 +40,7 @@ const Product = () => {
         if (!products || products.length === 0) {
           const response = await axios.post(`${backendUrl}/api/product/list`)
           if (response.data.success) {
-            const product = response.data.products.find(item => String(item._id) === urlProductId)
+            const product = response.data.products.find(item => formatUrlName(item.name) === productName)
             if (product) {
               setProductData(product)
               setProductId(product._id)
@@ -37,7 +48,7 @@ const Product = () => {
             }
           }
         } else {
-          const product = products.find(item => String(item._id) === urlProductId)
+          const product = products.find(item => formatUrlName(item.name) === productName)
           if (product) {
             setProductData(product)
             setProductId(product._id)
@@ -52,7 +63,7 @@ const Product = () => {
     }
 
     fetchProductData()
-  }, [urlProductId, products, backendUrl])
+  }, [productName, products, backendUrl])
 
   const fetchRatings = async () => {
     if (!productId) return;
@@ -125,10 +136,10 @@ const Product = () => {
               ))}
               <p className='pl-2'>({totalRatings} đánh giá)</p>
             </div>
-            <p className='mt-5 text-3xl font-medium'>{formatPrice(productData.price)} {currency}</p>
+            <p className='mt-5 text-3xl font-medium'>{formatPrice(productData.price)}</p>
             <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
-            <BMI />
-            <div className='flex flex-col gap-4 my-8'>
+           
+            <div className='flex flex-col gap-4 my-8 relative'>
               <p>Kích cở</p>
               <div className='flex gap-2'>
                 {productData.sizes.map((item,index)=>(
@@ -143,8 +154,42 @@ const Product = () => {
                 ))}
               </div>
             </div>
-            <button onClick={()=>addToCart(productData._id,size)} className='bg-black text-white px-6 py-2 rounded-lg'>Thêm vào giỏ hàng</button>
+            <div className="relative">
+              <button 
+                onClick={() => {
+                  if (!size) {
+                    toast.warning('Vui lòng chọn kích thước');
+                    return;
+                  }
+                  addToCart(productData._id, size);
+                  setShowAnimation(true);
+                  setTimeout(() => {
+                    setShowAnimation(false);
+                    setSize('');
+                  }, 800);
+                }} 
+                className='bg-black mb-4 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors'
+              >
+                Thêm vào giỏ hàng
+              </button>
+              
+                 <BMI />
+              {/* Add to cart animation */}
+              {showAnimation && (
+                <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+                  <div className='animate-fly-to-cart'>
+                    <img 
+                      src={image} 
+                      alt={productData.name} 
+                      className='w-20 h-20 object-cover rounded-lg shadow-lg'
+                    />
+                  </div>
+                </div>
+              )}
+              
+            </div>
         </div>
+        
       </div>
       
       {/* Phần đánh giá sản phẩm */}
@@ -200,7 +245,7 @@ const Product = () => {
                           <p className="mt-2 text-gray-600 ml-13">{rating.comment}</p>
                         )}
                         <p className="text-sm text-gray-500 mt-1 ml-13">
-                          {new Date(rating.createdAt).toLocaleDateString('vi-VN')}
+                          {formatDate(rating.createdAt)}
                         </p>
                       </div>
                     ))}

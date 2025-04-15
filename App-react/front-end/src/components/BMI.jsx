@@ -33,8 +33,8 @@ const BMICalculator = () => {
     };
 
     return (
-        <div className='bmi-calculator p-0'>
-            <button className='p-0' onClick={() => setShowCalculator(!showCalculator)}>
+        <div className='bmi-calculator '>
+            <button className='' onClick={() => setShowCalculator(!showCalculator)}>
                 {showCalculator ? 'Ẩn ' : 'Hướng dẫn chọn size'}
             </button>
 
@@ -59,7 +59,8 @@ const BMICalculator = () => {
                             placeholder="Nhập chiều cao"
                         />
                     </label>
-                    <button onClick={calculateBMI}>Tính BMI</button>
+                    <button className='ms-1 mb-2' onClick={calculateBMI}>Tính BMI</button>
+                    
 
                     {bmi !== null && (
                         <div>

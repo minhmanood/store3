@@ -6,12 +6,14 @@ import userModel from "../models/userModels.js"
 
 const placeOders=async(req,res)=>{
     try {
-        const {userId,items,amount,address}=req.body
+        const {userId, items, amount, address, discountCode, discountAmount} = req.body
         const orderData={
             userId,
             items,
             address,
             amount,
+            discountCode,
+            discountAmount,
             paymentMethod:"COD",
             payment:false,
             date:Date.now()
@@ -80,4 +82,16 @@ const updateStatus=async(req,res)=>{
     }
 
 }
-export{placeOderStripe,placeOders,placeOdersRazorpay,allOrders,updateStatus,userOrders}
+
+const cancelOrder = async(req,res) => {
+    try {
+        const { orderId } = req.body;
+        await orderModel.findByIdAndDelete(orderId);
+        res.json({success: true, message: "Đơn hàng đã được hủy"});
+    } catch (error) {
+        console.log(error);
+        res.json({success: false, message: error.message});
+    }
+}
+
+export{placeOderStripe,placeOders,placeOdersRazorpay,allOrders,updateStatus,userOrders,cancelOrder}
