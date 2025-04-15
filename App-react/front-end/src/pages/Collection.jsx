@@ -3,8 +3,10 @@ import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
 import Title from '../components/Title'
 import ProductItem from '../components/ProductItem'
+import { useLocation } from 'react-router-dom'
 
 const Collection = () => {
+  const location = useLocation()
   const {products,search,showSearch} = useContext(ShopContext)
   const [showFilter, setShowFilter] = useState(false)
   const [filterProducts, setFilterProducts] = useState([])
@@ -70,7 +72,11 @@ const Collection = () => {
   useEffect(()=>{
     sortProducts()
   },[sortType])
-  
+  useEffect(() => {
+    if (location.state?.subCategory) {
+      setSubCategory(location.state.subCategory)
+    }
+  }, [location.state])
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
      {/*   */} 

@@ -3,6 +3,7 @@
     "framer-motion": "^12.6.5",
     "nodemailer": "^6.10.0",
     "qrcode.react": "^4.2.0",
+    "react-intersection-observer": "^9.16.0",
     "react-qr-code": "^2.0.15",
     "react-toastify": "^11.0.3"
   }

@@ -1,53 +1,74 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Hero from '../components/Hero'
 import LatestCollection from '../components/LatestCollection'
 import BestSeller from '../components/BestSeller'
 import OurPolicy from '../components/OurPolicy'
 import NewsletterBox from '../components/NewsletterBox'
 import { assets } from '../assets/assets.js'
+import { motion, AnimatePresence } from 'framer-motion'
+import Categories from '../components/Categories'
 
+const Home = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [showWelcome, setShowWelcome] = useState(true)
 
-const Categories = () => {
-  const categories = [
-    { name: 'Áo thun', image:assets.combo1 },
-    { name: 'Áo sơ mi', image:assets.combo2},
-    { name: 'Trang sức', image:assets.combo3},
-    { name: 'Giày dép',image:assets.combo4 },
-    { name: 'Mỹ phẩm', image:assets.combo5 }
-  ]
+  useEffect(() => {
+    // Simulate loading time (replace with actual loading logic)
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    if (!isLoading) {
+      const fadeTimer = setTimeout(() => {
+        setShowWelcome(false)
+      }, 1000)
+      return () => clearTimeout(fadeTimer)
+    }
+  }, [isLoading])
 
   return (
-    <div className="py-10 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-center text-2xl font-bold mb-8">DANH MỤC SẢN PHẨM</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-        {categories.map((category, index) => (
-          <div key={index} className="group cursor-pointer">
-            <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
-              <img
-                src={category.image}
-                alt={category.name}
-                className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity"
-              />
-            </div>
-            <h3 className="mt-2 text-sm font-medium text-center">{category.name}</h3>
-          </div>
-        ))}
+    <div className="relative">
+      <AnimatePresence>
+        {showWelcome && (
+          <motion.div
+            className="fixed inset-0 bg-white z-50 flex items-center justify-center"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold text-center"
+              initial={{ scale: 1 }}
+              animate={{ 
+                scale: [1, 1.5, 0], // Phóng to rồi thu nhỏ
+                opacity: [1, 1, 0], // Mờ dần khi thu nhỏ
+                transition: { 
+                  duration: 3.6,
+                  times: [0, 0.5, 1], // Thời gian cho từng giai đoạn
+                  ease: "easeInOut"
+                }
+              }}
+            >
+              Well come to our store
+            </motion.h1>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className={showWelcome ? "opacity-0" : "opacity-100 transition-opacity duration-1000"}>
+        <Hero/>
+        <Categories/>
+        <LatestCollection/>
+        <BestSeller/>
+        <OurPolicy/>
+        <NewsletterBox/>
       </div>
     </div>
   )
 }
 
-const home = () => {
-  return (
-    <div>
-      <Hero/>
-      <Categories/>
-      <LatestCollection/>
-      <BestSeller/>
-      <OurPolicy/>
-      {/* <NewsletterBox/> */}
-    </div>
-  )
-}
-
-export default home
+export default Home
