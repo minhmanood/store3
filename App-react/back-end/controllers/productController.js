@@ -6,7 +6,16 @@ import productModel from "../models/productModels.js"
 //Ham tao san pham 
 const addProduct = async(req,res) =>{
 try {
-    const {name,description,price,category,subCategory,sizes,bestseller}= req.body
+    const {
+      name,
+      description,
+      price,
+      category,
+      subCategory,
+      sizes,
+      colors,
+      bestseller,
+    } = req.body;
     const image1=req.files.image1 && req.files.image1[0]
     const image2=req.files.image2 && req.files.image2[0]
     const image3=req.files.image3 && req.files.image3[0]
@@ -24,9 +33,9 @@ try {
         category,
         price:Number(price),
         subCategory,
-        subColor,
         bestseller:bestseller==="true"?true:false,
         sizes:JSON.parse(sizes),
+        colors:JSON.parse(colors),
         image:imagesUrl,
         date:Date.now()
     }

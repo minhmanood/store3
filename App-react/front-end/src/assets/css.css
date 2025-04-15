@@ -1,5 +1,6 @@
 /* src/BMICalculator.css */
 .bmi-calculator {
+    margin-top: 20px;
     margin-left: 10px;
     max-width: 165px;
     /* Giới hạn chiều rộng */
@@ -12,7 +13,7 @@
     /* Bo tròn góc */
 
     /* Màu nền nhẹ */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(250, 249, 249, 0.1);
     /* Đổ bóng */
 }
 
@@ -48,27 +49,24 @@
 }
 
 .bmi-calculator button {
-    background-color: #000000;
-    /* Màu nền nút */
-    color: white;
-    /* Màu chữ nút */
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     border: none;
-    /* Không có đường viền */
-    padding: 10px;
-    /* Padding cho nút */
+    padding: 6px 12px;
+    /* Reduced padding */
     border-radius: 5px;
-    /* Bo tròn góc */
     cursor: pointer;
-    /* Con trỏ tay khi di chuột */
-    font-size: 16px;
-    /* Kích thước chữ */
+    font-size: 14px;
+    /* Smaller font */
     transition: background-color 0.3s;
-    /* Hiệu ứng chuyển đổi */
+    min-width: 80px;
+    /* Minimum width */
+    white-space: nowrap;
+    /* Prevent text wrapping */
 }
 
 .bmi-calculator button:hover {
     background-color: #eef6ff;
-    /* Màu nền nút khi hover */
     color: #1f1f1f;
 }
 

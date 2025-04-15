@@ -8,6 +8,7 @@ import StarRating from '../components/StarRating'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { formatCurrency } from '../utils/formatCurrency'
+import { color } from 'framer-motion';
 
 const formatPrice = (price) => {
   return formatCurrency(price)
@@ -19,6 +20,7 @@ const Product = () => {
   const [productData, setProductData] = useState(null)
   const [image, setImage] = useState('')
   const [size, setSize] = useState('')
+  const [color, setColors] = useState('')
   const [loading, setLoading] = useState(true)
   const [ratings, setRatings] = useState([])
   const [averageRating, setAverageRating] = useState(0)
@@ -140,20 +142,57 @@ const Product = () => {
             <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
            
             <div className='flex flex-col gap-4 my-8 relative'>
-              <p>Kích cở</p>
+              <div className='flex flex-col sm:flex-row gap-4 items-start sm:items-center'>
+                <div>
+                  <p>Kích cở</p>
+                  <div className='flex gap-2'>
+                    {productData.sizes.map((item,index)=>(
+                      <div key={index} 
+                        onClick={()=>setSize(item)}
+                        className={`px-2 sm:px-3 sm:py-1 border cursor-pointer ${
+                          size === item ? 'bg-black text-white' : 'bg-slate-50'
+                        }`}
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <BMI />
+              </div>
+            </div>
+            
+            <div className='flex flex-col gap-4 my-8 relative'>
+              <p>Màu sắc</p>
               <div className='flex gap-2'>
-                {productData.sizes.map((item,index)=>(
+                {productData.colors.map((item,index)=>(
                   <div key={index} 
-                    onClick={()=>setSize(item)}
-                    className={`px-2 sm:px-3 sm:py-1 border cursor-pointer ${
-                      size === item ? 'bg-black text-white' : 'bg-slate-50'
+                    onClick={()=>setColors(item)}
+                    className={`px-2 sm:px-3 sm:py-1 border cursor-pointer flex items-center gap-2 ${
+                      color === item ? 'ring-2 ring-black' : 'bg-slate-50'
                     }`}
                   >
+                    <span 
+                      className="w-4 h-4 rounded-full" 
+                      style={{
+                        backgroundColor: 
+                          item === 'Đỏ' ? '#ff0000' :
+                          item === 'Xanh dương' ? '#0000ff' :
+                          item === 'Xanh lá' ? '#00ff00' :
+                          item === 'Đen' ? '#000000' :
+                          item === 'Trắng' ? '#ffffff' :
+                          item === 'Vàng' ? '#ffff00' :
+                          item === 'Hồng' ? '#ffc0cb' :
+                          item === 'Tím' ? '#800080' : '#cccccc',
+                        border: item === 'Trắng' ? '1px solid #ccc' : 'none'
+                      }}
+                    ></span>
                     {item}
                   </div>
                 ))}
               </div>
             </div>
+           
             <div className="relative">
               <button 
                 onClick={() => {
@@ -161,11 +200,16 @@ const Product = () => {
                     toast.warning('Vui lòng chọn kích thước');
                     return;
                   }
-                  addToCart(productData._id, size);
+                  if (!color) {
+                    toast.warning('Vui lòng chọn màu sắc');
+                    return;
+                  }
+                  addToCart(productData._id, size, color);
                   setShowAnimation(true);
                   setTimeout(() => {
                     setShowAnimation(false);
                     setSize('');
+                    setColors('');
                   }, 800);
                 }} 
                 className='bg-black mb-4 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors'
@@ -173,7 +217,7 @@ const Product = () => {
                 Thêm vào giỏ hàng
               </button>
               
-                 <BMI />
+                
               {/* Add to cart animation */}
               {showAnimation && (
                 <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>

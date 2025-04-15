@@ -33,41 +33,63 @@ const BMICalculator = () => {
     };
 
     return (
-        <div className='bmi-calculator '>
-            <button className='' onClick={() => setShowCalculator(!showCalculator)}>
-                {showCalculator ? 'Ẩn ' : 'Hướng dẫn chọn size'}
+        <div className='bmi-calculator'>
+            <button 
+                className='bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors'
+                onClick={() => setShowCalculator(!showCalculator)}
+            >
+                {showCalculator ? 'Ẩn' : 'Hướng dẫn chọn size'}
             </button>
 
             {showCalculator && (
-                <div>
-                    <h2>Tính BMI</h2>
-                    <label>
-                        Cân nặng (kg):
-                        <input
-                            type="number"
-                            value={weight}
-                            onChange={(e) => setWeight(e.target.value)}
-                            placeholder="Nhập cân nặng"
-                        />
-                    </label>
-                    <label>
-                        Chiều cao (m):
-                        <input
-                            type="number"
-                            value={height}
-                            onChange={(e) => setHeight(e.target.value)}
-                            placeholder="Nhập chiều cao"
-                        />
-                    </label>
-                    <button className='ms-1 mb-2' onClick={calculateBMI}>Tính BMI</button>
-                    
-
-                    {bmi !== null && (
-                        <div>
-                            <h3>Chỉ số BMI của bạn là: {bmi}</h3>
-                            <p>Bạn nên chọn: {size}</p>
+                <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+                    <div className='bg-white p-6 rounded-lg shadow-lg max-w-md w-full'>
+                        <div className='flex justify-between items-center mb-4'>
+                            <h2 className='text-xl font-bold'>Tính BMI</h2>
+                            <button 
+                                onClick={() => setShowCalculator(false)}
+                                className='text-gray-500 hover:text-black'
+                            >
+                                ✕
+                            </button>
                         </div>
-                    )}
+                        
+                        <div className='space-y-4'>
+                            <label className='block'>
+                                Cân nặng (kg):
+                                <input
+                                    type="number"
+                                    value={weight}
+                                    onChange={(e) => setWeight(e.target.value)}
+                                    placeholder="Nhập cân nặng"
+                                    className='w-full p-2 border rounded mt-1'
+                                />
+                            </label>
+                            <label className='block'>
+                                Chiều cao (m):
+                                <input
+                                    type="number"
+                                    value={height}
+                                    onChange={(e) => setHeight(e.target.value)}
+                                    placeholder="Nhập chiều cao"
+                                    className='w-full p-2 border rounded mt-1'
+                                />
+                            </label>
+                            <button 
+                                className='bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors w-full'
+                                onClick={calculateBMI}
+                            >
+                                Tính BMI
+                            </button>
+
+                            {bmi !== null && (
+                                <div className='mt-4 p-4 bg-gray-100 rounded'>
+                                    <h3 className='font-medium'>Chỉ số BMI của bạn là: {bmi}</h3>
+                                    <p className='mt-1'>Bạn nên chọn: {size}</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

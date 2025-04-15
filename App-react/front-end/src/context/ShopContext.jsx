@@ -59,35 +59,42 @@ const ShopContextProvider=(props)=>{
         return subtotal === 0 ? 0 : subtotal - discount + delivery_Fee;
     }
 
-    const addToCart= async (itemId,size)=>{
-        if(!size){
-            toast.error("Vui lòng chọn size")
-            return
+    const addToCart = async (itemId, size, colors) => {
+        if (!size) {
+            toast.error("Vui lòng chọn size");
+            return;
         }
-        let cartData=structuredClone(cartItems)
-        if(cartData[itemId]){
-            if(cartData[itemId][size]){
-                cartData[itemId][size]+=1;
+        if (!colors) {
+            toast.error("Vui lòng chọn màu sắc");
+            return;
+        }
+        
+        let cartData = structuredClone(cartItems);
+        const itemKey = `${size}|${colors}`; // Combine size and colors as key
+        
+        if (cartData[itemId]) {
+            if (cartData[itemId][itemKey]) {
+                cartData[itemId][itemKey] += 1;
+            } else {
+                cartData[itemId][itemKey] = 1;
             }
-            else{
-                cartData[itemId] [size]=1
-                
-            }
+        } else {
+            cartData[itemId] = {};
+            cartData[itemId][itemKey] = 1;
         }
-        else{
-            cartData[itemId]={}
-            cartData[itemId][size]=1
-        }
-        setCartItems(cartData)
+        
+        setCartItems(cartData);
+        
         if (token) {
             try {
-                await axios.post(backendUrl+"/api/cart/add",{itemId,size},{headers:{token}})
+                await axios.post(backendUrl + "/api/cart/add", 
+                    { itemId, size, colors }, 
+                    { headers: { token } }
+                );
             } catch (error) {
                 console.log(error);
-                toast.error(error.message)
-                
+                toast.error(error.message);
             }
-            
         }
     }
    const getCartCount=()=>{

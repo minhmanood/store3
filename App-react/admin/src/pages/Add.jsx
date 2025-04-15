@@ -20,6 +20,8 @@ const Add = ({token}) => {
   const [sizes,setSizes]=useState([])
   const [loading, setLoading] = useState(false)
 
+  const [colors, setColors] = useState([]);
+
   const resetForm = () => {
     setName('')
     setDescription('')
@@ -32,6 +34,7 @@ const Add = ({token}) => {
     setSizes([])
     setCategory('Men')
     setSubCategory('Thu')
+    setColors([]);
   }
 
   const onSubmitHandler = async(e)=>{
@@ -55,9 +58,9 @@ const Add = ({token}) => {
       formData.append("price", price)
       formData.append("category", category)
       formData.append("subCategory", subCategory)
-      formData.append("subColor", subColor)
       formData.append("bestseller", bestseller)
       formData.append("sizes", JSON.stringify(sizes))
+      formData.append("colors", JSON.stringify(colors));
 
       if (image1) formData.append("image1", image1)
       if (image2) formData.append("image2", image2)
@@ -208,6 +211,60 @@ const Add = ({token}) => {
           </div>
         </div>
       </div>
+      <div>
+  <p className='mb-2'>Màu sắc</p>
+  <div className='flex gap-3 flex-wrap'>
+    <div onClick={()=>setColors(prev =>prev.includes("Đỏ") ? prev.filter(item=>item !=="Đỏ"):[...prev,"Đỏ"])}>
+      <p className={`${colors.includes("Đỏ") ? "bg-red-500 text-white":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-red-500'></span>
+        Đỏ
+      </p>
+    </div>
+    <div onClick={()=>setColors(prev =>prev.includes("Xanh dương") ? prev.filter(item=>item !=="Xanh dương"):[...prev,"Xanh dương"])}>
+      <p className={`${colors.includes("Xanh dương") ? "bg-blue-500 text-white":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-blue-500'></span>
+        Xanh dương
+      </p>
+    </div>
+    <div onClick={()=>setColors(prev =>prev.includes("Xanh lá") ? prev.filter(item=>item !=="Xanh lá"):[...prev,"Xanh lá"])}>
+      <p className={`${colors.includes("Xanh lá") ? "bg-green-500 text-white":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-green-500'></span>
+        Xanh lá
+      </p>
+    </div>
+    <div onClick={()=>setColors(prev =>prev.includes("Đen") ? prev.filter(item=>item !=="Đen"):[...prev,"Đen"])}>
+      <p className={`${colors.includes("Đen") ? "bg-black text-white":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-black'></span>
+        Đen
+      </p>
+    </div>
+    <div onClick={()=>setColors(prev =>prev.includes("Trắng") ? prev.filter(item=>item !=="Trắng"):[...prev,"Trắng"])}>
+      <p className={`${colors.includes("Trắng") ? "bg-white border border-gray-300":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-white border border-gray-300'></span>
+        Trắng
+      </p>
+    </div>
+    <div onClick={()=>setColors(prev =>prev.includes("Vàng") ? prev.filter(item=>item !=="Vàng"):[...prev,"Vàng"])}>
+      <p className={`${colors.includes("Vàng") ? "bg-yellow-400":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-yellow-400'></span>
+        Vàng
+      </p>
+    </div>
+    <div onClick={()=>setColors(prev =>prev.includes("Hồng") ? prev.filter(item=>item !=="Hồng"):[...prev,"Hồng"])}>
+      <p className={`${colors.includes("Hồng") ? "bg-pink-400 text-white":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-pink-400'></span>
+        Hồng
+      </p>
+    </div>
+    <div onClick={()=>setColors(prev =>prev.includes("Tím") ? prev.filter(item=>item !=="Tím"):[...prev,"Tím"])}>
+      <p className={`${colors.includes("Tím") ? "bg-purple-500 text-white":"bg-gray-200"} px-3 py-1 cursor-pointer rounded flex items-center gap-2`}>
+        <span className='w-3 h-3 rounded-full bg-purple-500'></span>
+        Tím
+      </p>
+    </div>
+  </div>
+</div>
+
 
       <div className='flex gap-2 mt-2'>
         <input 
@@ -231,3 +288,5 @@ const Add = ({token}) => {
 }
 
 export default Add
+
+// Add this after the sizes section
